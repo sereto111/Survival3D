@@ -8413,6 +8413,7 @@ GameObject:
   - component: {fileID: 1615457096}
   - component: {fileID: 1615457095}
   - component: {fileID: 1615457098}
+  - component: {fileID: 1615457099}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Untagged
@@ -8520,7 +8521,19 @@ MonoBehaviour:
     m_ActionId: e576cfdf-bb57-4d01-bd49-d834578a4410
     m_ActionName: Principal/Saltar[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1615457099}
+        m_TargetAssemblyTypeName: ControlJugador, Assembly-CSharp
+        m_MethodName: OnVistaInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2cfa3c25-72ad-4fa7-9e66-dc84c14e7307
     m_ActionName: Principal/Mirar[/Mouse/delta]
   m_NeverAutoSwitchControlSchemes: 0
@@ -8528,6 +8541,22 @@ MonoBehaviour:
   m_DefaultActionMap: Principal
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1615457099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615457094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47a7024db167ac348a93824f9a862a04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camara: {fileID: 1136385243}
+  minVistaX: 0
+  maxVistaX: 0
+  sensibilidadRaton: 0
 --- !u!1001 &1622358852
 PrefabInstance:
   m_ObjectHideFlags: 0
