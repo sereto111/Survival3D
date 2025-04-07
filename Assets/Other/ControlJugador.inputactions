@@ -27,7 +27,7 @@
                     "name": "Mirar",
                     "type": "Value",
                     "id": "2cfa3c25-72ad-4fa7-9e66-dc84c14e7307",
-                    "expectedControlType": "Delta",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
