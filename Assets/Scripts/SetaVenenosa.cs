@@ -21,7 +21,7 @@ public class SetaVenenosa : MonoBehaviour
         
     }
 
-    private void OllisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -30,7 +30,7 @@ public class SetaVenenosa : MonoBehaviour
         }       
     }
 
-    private void OnCsionExit(Collision collision)
+    private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
