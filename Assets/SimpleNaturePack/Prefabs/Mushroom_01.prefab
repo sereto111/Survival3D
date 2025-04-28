@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4385080170327957909}
   - component: {fileID: 882770542445914717}
+  - component: {fileID: 3716863812789917424}
+  - component: {fileID: 8061319669073862634}
   m_Layer: 0
   m_Name: Mushroom_01
   m_TagString: Untagged
@@ -57,6 +59,41 @@ LODGroup:
     renderers:
     - renderer: {fileID: 2847339849958604872}
   m_Enabled: 1
+--- !u!114 &3716863812789917424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4385080170328260021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd05a6222cdb9349bb1d4336016fbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cantidadVeneno: 10
+  indiceDeterioro: 2
+--- !u!65 &8061319669073862634
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4385080170328260021}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.20722799, y: 0.34398317, z: 0.20740986}
+  m_Center: {x: 0.0007352352, y: 0.16997461, z: -0.0005247116}
 --- !u!1 &8373805728737738159
 GameObject:
   m_ObjectHideFlags: 0
