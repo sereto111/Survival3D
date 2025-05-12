@@ -35,7 +35,7 @@ public class ControlAlertaDeterioro : MonoBehaviour
         {
             alpha -= Time.deltaTime / velocidadDesaparecer;
             imagenMarcoRojo.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+            yield return null;
         }
-        yield return null;
     }
 }

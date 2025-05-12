@@ -4762,7 +4762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imagenMarcoRojo: {fileID: 706072803}
-  velocidadDesaparecer: 0
+  velocidadDesaparecer: 0.5
 --- !u!1001 &715843507
 PrefabInstance:
   m_ObjectHideFlags: 0
