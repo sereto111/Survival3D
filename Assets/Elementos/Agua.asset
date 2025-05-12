@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f3c41bccabf3342a96614fcbd9c22e, type: 3}
+  m_Name: Agua
+  m_EditorClassIdentifier: 
+  nombre: Agua
+  descripcion: Quita sed
+  icono: {fileID: 21300000, guid: d59e9935ff171c44ba31b7fe20e159d9, type: 3}
+  prefabSoltar: {fileID: 1237884354238378, guid: 111549fa332d30b4d93ee7a79fca0218, type: 3}

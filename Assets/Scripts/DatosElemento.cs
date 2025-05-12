@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DatosElemento : MonoBehaviour
+[CreateAssetMenu(fileName = "Elemento", menuName = "Elemento Inventario")]
+public class DatosElemento : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Información")]
+    public string nombre;
+    public string descripcion;
+    public Sprite icono;
+    public GameObject prefabSoltar;
 }
