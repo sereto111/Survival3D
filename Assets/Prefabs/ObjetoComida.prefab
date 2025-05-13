@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8429477557817665655}
   - component: {fileID: 8079554428770959401}
   - component: {fileID: 4479389631263776833}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ObjetoComida
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -7,8 +7,8 @@ public class ObjetoElemento : MonoBehaviour, IInteractuable
     public DatosElemento elemento;
     public string ObtenerMensajeInteractuable()
     {
-        return "Recogiste " + elemento.nombre;
-        //return string.Format("Recogiste {0}", elemento.nombre);
+        //return "Recogiste " + elemento.nombre;
+        return string.Format("Recogiste {0}", elemento.nombre);
     }
 
     public void OnInteractuar()

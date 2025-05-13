@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 319534279896575615}
   - component: {fileID: 8733292112092850742}
   - component: {fileID: 5811037685075085249}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ObjetoAgua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d81fa1d9f54b14086609326a47619f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elemento: {fileID: 0}
 --- !u!1001 &6120642619984324125
 PrefabInstance:
   m_ObjectHideFlags: 0
