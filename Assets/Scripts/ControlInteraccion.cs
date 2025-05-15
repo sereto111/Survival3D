@@ -33,17 +33,16 @@ public class ControlInteraccion : MonoBehaviour
             
             // lanzar el rayo
             Ray rayo = camara.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            RaycastHit lanzaRayo;
-
+            RaycastHit lanzaRayo;            
             if (Physics.Raycast(rayo, out lanzaRayo, maxDistanciaChequeo, capaRayo))
             {
                 if (lanzaRayo.collider.gameObject != gameObjectInteractuableActual)
-                {    
+                {
                     gameObjectInteractuableActual = lanzaRayo.collider.gameObject;
                     interactuableActual = gameObjectInteractuableActual.GetComponent<IInteractuable>();
                     establecerMensajeTexto();
                 }
-            }           
+            }
             else
             {
                 mensajeTexto.gameObject.SetActive(false);

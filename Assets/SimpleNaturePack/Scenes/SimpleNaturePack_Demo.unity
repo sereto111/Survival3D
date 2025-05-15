@@ -1968,7 +1968,7 @@ GameObject:
   - component: {fileID: 202492825}
   m_Layer: 0
   m_Name: Camera3
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9306,7 +9306,7 @@ GameObject:
   - component: {fileID: 1540101496}
   m_Layer: 0
   m_Name: Camera2
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9865,7 +9865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   periodoTiempoChequeo: 0.5
-  maxDistanciaChequeo: 5000
+  maxDistanciaChequeo: 1000
   capaRayo:
     serializedVersion: 2
     m_Bits: 1024
