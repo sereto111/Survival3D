@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ControlInteraccion : MonoBehaviour
 {
@@ -30,10 +31,10 @@ public class ControlInteraccion : MonoBehaviour
         if (Time.time - ultimoTiempoChequeo >= periodoTiempoChequeo)
         {
             ultimoTiempoChequeo = Time.time;
-            
+
             // lanzar el rayo
             Ray rayo = camara.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            RaycastHit lanzaRayo;            
+            RaycastHit lanzaRayo;
             if (Physics.Raycast(rayo, out lanzaRayo, maxDistanciaChequeo, capaRayo))
             {
                 if (lanzaRayo.collider.gameObject != gameObjectInteractuableActual)
@@ -52,9 +53,21 @@ public class ControlInteraccion : MonoBehaviour
         }
     }
 
-    private void establecerMensajeTexto(){
+    private void establecerMensajeTexto()
+    {
         mensajeTexto.gameObject.SetActive(true);
         mensajeTexto.text = string.Format("<b>[E]</b> {0}", interactuableActual.ObtenerMensajeInteractuable());
+    }
+    
+    public void OnInteractuar(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            interactuableActual.OnInteractuar();
+            interactuableActual = null;
+            gameObjectInteractuableActual = null;
+            mensajeTexto.gameObject.SetActive(false);                    
+        }
     }
 }
 
