@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ControlInventario : MonoBehaviour
@@ -19,8 +21,8 @@ public class ControlInventario : MonoBehaviour
     public TextMeshProUGUI descripcionElementoSeleccionado; // Descripcion del elemento seleccionado
     public TextMeshProUGUI nombreNecesidadElementoSeleccionado; // nombreNecesidad del elemento seleccionado
     public TextMeshProUGUI valoresNecesidadElementoSeleccionado; // valoresNecesidad del elemento seleccionado
-    public Button botonUsarElementoSeleccionado; // Botón de usar el elemento seleccionado
-    public Button botonSoltarElementoSeleccionado; // Botón de soltar el elemento seleccionado
+    public GameObject botonUsarElementoSeleccionado; // Botón de usar el elemento seleccionado
+    public GameObject botonSoltarElementoSeleccionado; // Botón de soltar el elemento seleccionado
 
     //necesitamos el control del jugador para poder usar el elemento
     private ControlJugador controlJugador; // Control del jugador
@@ -58,9 +60,22 @@ public class ControlInventario : MonoBehaviour
         }
     }
 
-    void AbrirCerrarVentanaInventario()
+    public void AbrirCerrarVentanaInventario()
     {
+        if (EstaAbierto())
+        {
+            ventanaInventario.SetActive(false); // Cerrar la ventana del inventario
+        }
+        else
+        {
+            ventanaInventario.SetActive(true); // Abrir la ventana del inventario
+        }        
+    }
 
+    public void OnBotonInventario(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)        
+            AbrirCerrarVentanaInventario(); // Llamar al método para abrir o cerrar la ventana del inventario        
     }
 
     // Consulta si la ventana del inventario esta abierta o cerrada
@@ -69,12 +84,10 @@ public class ControlInventario : MonoBehaviour
         return ventanaInventario.activeInHierarchy; // Comprobar si la ventana del inventario está abierta
     }
 
-    // TOFIX
-    // TODO
     // Método para actualizar el inventario
-    /*void AnadirElemento(DatosElemento datosElemento) 
+    public void AnadirElemento(DatosElemento elemento) 
     {
-        ElementosEstanteria elementoParaAlmacenar = ObtenerElementoAlmacenado(datosElemento); // Obtener el elemento almacenado en la estantería
+        ElementosEstanteria elementoParaAlmacenar = ObtenerElementoAlmacenado(elemento); // Obtener el elemento almacenado en la estantería
         if (elementoParaAlmacenar != null)
         {
             elementoParaAlmacenar.cantidad++; // Aumentar la cantidad del elemento almacenado
@@ -85,7 +98,7 @@ public class ControlInventario : MonoBehaviour
         ElementosEstanteria objetoVacio = ObtenerObjetoVacio(); // Obtener un objeto vacío
         if (objetoVacio != null)
         {
-            objetoVacio.datosElemento = datosElemento; // Asignar el elemento a la posición vacía
+            objetoVacio.datosElemento = elemento; // Asignar el elemento a la posición vacía
             objetoVacio.cantidad = 1; // Inicializar la cantidad del elemento
             ActualizarUI(); // Actualizar la interfaz de usuario
             return;
@@ -93,8 +106,9 @@ public class ControlInventario : MonoBehaviour
         else
         {
             Debug.Log("No hay espacio en el inventario"); // Mensaje de error si no hay espacio en el inventario
+            SoltarElemento(elemento); // Soltar el elemento si no hay espacio
         }
-    }*/
+    }
 
     void SoltarElemento(DatosElemento elemento)
     {
@@ -103,32 +117,83 @@ public class ControlInventario : MonoBehaviour
 
     void ActualizarUI()
     {
-
+        for (int i = 0; i < elementosEstanteriaUIs.Length; i++)
+        {
+            if (elementosEstanteria[i].datosElemento != null)
+                elementosEstanteriaUIs[i].Establecer(elementosEstanteria[i]); // Actualizar la interfaz de usuario del elemento
+            else
+                elementosEstanteriaUIs[i].Limpiar(); // Limpiar la interfaz de usuario si el elemento es nulo
+        }
     }
 
-    ElementosEstanteria ObtenerElementoAlmacenado(int indice)
+    ElementosEstanteria ObtenerElementoAlmacenado(DatosElemento elemento)
     {
-        return null; //TODO
+        for (int i = 0; i < elementosEstanteria.Length; i++)
+        {
+            if (elementosEstanteria[i].datosElemento == elemento)
+            {
+                return elementosEstanteria[i]; // Retorna el elemento almacenado si se encuentra
+            }
+        }
+        return null; // Retorna null si no se encuentra el elemento almacenado
     }
 
     ElementosEstanteria ObtenerObjetoVacio()
     {
-        return null; //TODO
+        for (int i = 0; i < elementosEstanteria.Length; i++)
+        {
+            if (elementosEstanteria[i].datosElemento == null)
+            {
+                return elementosEstanteria[i]; // Retorna el objeto vacío si se encuentra
+            }
+        }
+        return null; // Retorna null si no se encuentra un objeto vacío
     }
 
-    void ElementoSeleccionado(int indice)
+    public void ElementoSeleccionado(int indice)
     {
-        //TODO
+        if (elementosEstanteria[indice] == null)
+            return; // Si el elemento es nulo, no hacer nada
+        else
+        {
+            elementosEstanteriaSeleccionado = elementosEstanteria[indice]; // Asignar el elemento seleccionado
+            IndiceElementoSeleccionado = indice; // Asignar el índice del elemento seleccionado
+
+            nombreElementoSeleccionado.text = elementosEstanteriaSeleccionado.datosElemento.nombre; // Asignar el nombre del elemento seleccionado
+            descripcionElementoSeleccionado.text = elementosEstanteriaSeleccionado.datosElemento.descripcion; // Asignar la descripción del elemento seleccionado
+
+            botonSoltarElementoSeleccionado.SetActive(true); // Activar el botón de soltar el elemento seleccionado
+            botonUsarElementoSeleccionado.SetActive(true); // Activar el botón de usar el elemento seleccionado si tiene necesidades
+        }
     }
 
-    void EliminarElementoSeleccionado(int indice)
+    public void EliminarElementoSeleccionado()
     {
-        //TODO
+        elementosEstanteriaSeleccionado.cantidad--; // Disminuir la cantidad del elemento seleccionado
+        if (elementosEstanteriaSeleccionado.cantidad <= 0)
+        {
+            elementosEstanteria = null; // Eliminar el elemento seleccionado si la cantidad es menor o igual a 0
+            LimpiarVentanaElementoSeleccionado(); // Limpiar el elemento seleccionado
+
+        }
+    }
+
+    private void LimpiarVentanaElementoSeleccionado()
+    {
+
+        elementosEstanteriaSeleccionado = null;
+
+        nombreElementoSeleccionado.text = string.Empty; // Limpiar el nombre del elemento seleccionado
+        descripcionElementoSeleccionado.text = string.Empty; // Limpiar la descripción del elemento seleccionado
+
+        botonSoltarElementoSeleccionado.SetActive(false);
+        botonUsarElementoSeleccionado.SetActive(false);
+        
     }
 
     public void OnBotonUsar()
     {
-        //TODO
+        EliminarElementoSeleccionado(); // Eliminar el elemento seleccionado
     }
 
     public void OnBotonSoltar()

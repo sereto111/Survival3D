@@ -14,6 +14,7 @@ public class ObjetoElemento : MonoBehaviour, IInteractuable
     public void OnInteractuar()
     {
         Destroy(gameObject); // se elimina el objeto
+        ControlInventario.instance.AnadirElemento(elemento); // se agrega el elemento al inventario
     }
 
     // Start is called before the first frame update

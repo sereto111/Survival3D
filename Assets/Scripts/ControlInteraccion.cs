@@ -41,7 +41,7 @@ public class ControlInteraccion : MonoBehaviour
                 {
                     gameObjectInteractuableActual = lanzaRayo.collider.gameObject;
                     interactuableActual = gameObjectInteractuableActual.GetComponent<IInteractuable>();
-                    establecerMensajeTexto();
+                    EstablecerMensajeTexto();
                 }
             }
             else
@@ -53,7 +53,7 @@ public class ControlInteraccion : MonoBehaviour
         }
     }
 
-    private void establecerMensajeTexto()
+    private void EstablecerMensajeTexto()
     {
         mensajeTexto.gameObject.SetActive(true);
         mensajeTexto.text = string.Format("<b>[E]</b> {0}", interactuableActual.ObtenerMensajeInteractuable());
