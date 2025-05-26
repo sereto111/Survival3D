@@ -28,6 +28,9 @@ public class ElementosEstanteriaUI : MonoBehaviour
         textoCantidad.text = ""; // Limpiar el texto de la cantidad
     }
 
-
-    
+    public void OnButtonClick()
+    {
+        ControlInventario.instance.ElementoSeleccionado(indice); // Seleccionar el elemento al hacer click
+        
+    }
 }
