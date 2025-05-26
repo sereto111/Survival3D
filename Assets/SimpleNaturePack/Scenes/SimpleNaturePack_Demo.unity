@@ -12310,8 +12310,8 @@ MonoBehaviour:
   descripcionElementoSeleccionado: {fileID: 387042884}
   nombreNecesidadElementoSeleccionado: {fileID: 564160620}
   valoresNecesidadElementoSeleccionado: {fileID: 109900553}
-  botonUsarElementoSeleccionado: {fileID: 1936498758}
-  botonSoltarElementoSeleccionado: {fileID: 1242842759}
+  botonUsarElementoSeleccionado: {fileID: 0}
+  botonSoltarElementoSeleccionado: {fileID: 0}
   onabrirVentanaInventario:
     m_PersistentCalls:
       m_Calls: []
