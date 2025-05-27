@@ -21,11 +21,11 @@ public class ControlJugador : MonoBehaviour
     [Header("Salto")]
     public float fuerzaSalto;
     public LayerMask capaSuelo; // Capa del suelo
+    private bool puedeMirar = true; // Si el jugador puede mirar
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked; // Bloquear el cursor en el centro de la pantalla
-        //Cursor.visible = false; // Hacer invisible el cursor
+        ModoInventario(false);
     }
 
     public void OnVistaInput(InputAction.CallbackContext context)
@@ -40,7 +40,8 @@ public class ControlJugador : MonoBehaviour
 
     private void LateUpdate()
     {
-        VistaCamara();
+        if (puedeMirar)
+            VistaCamara();
     }
 
     private void VistaCamara()
@@ -59,11 +60,11 @@ public class ControlJugador : MonoBehaviour
     // Movimiento Jugador
     public void OnMovimientoInput(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Performed)
+        if (context.phase == InputActionPhase.Performed)
         {
             movimientoActualEntrada = context.ReadValue<Vector2>();
         }
-        else if(context.phase == InputActionPhase.Canceled)
+        else if (context.phase == InputActionPhase.Canceled)
         {
             movimientoActualEntrada = Vector2.zero;
         }
@@ -89,7 +90,7 @@ public class ControlJugador : MonoBehaviour
     private bool EstaEnSuelo()
     {
         if (fisica == null) return false; // Si no hay fisica, no se puede saltar
-        
+
         Ray[] rayos = new Ray[4] // Rayos para detectar el suelo
         {
             new Ray(transform.position + transform.forward*0.2f, Vector3.down), // Centro
@@ -100,7 +101,7 @@ public class ControlJugador : MonoBehaviour
 
         foreach (Ray r in rayos)
             return Physics.Raycast(r, 0.7f, capaSuelo); // Si el rayo toca el suelo
-        
+
         return false; // No esta en el suelo
     }
 
@@ -112,4 +113,11 @@ public class ControlJugador : MonoBehaviour
         Gizmos.DrawRay(transform.position + transform.right * 0.2f, Vector3.down * 0.7f); // Izquierda
         Gizmos.DrawRay(transform.position - transform.right * 0.2f, Vector3.down * 0.7f); // Delante
     }
+
+    // para la escena y aparecer ratón al pulsar inventario
+    public void ModoInventario(bool valor)
+    {
+        Cursor.lockState = valor ? CursorLockMode.None : CursorLockMode.Locked;
+        puedeMirar = !valor; // Si esta en modo inventario, no puede mirar
+    } 
 }

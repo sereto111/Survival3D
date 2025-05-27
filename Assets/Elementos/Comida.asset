@@ -15,4 +15,5 @@ MonoBehaviour:
   nombre: Comida
   descripcion: Quita hambre
   icono: {fileID: 21300000, guid: d97fad5f3f623e547acfcb82018fb410, type: 3}
-  prefabSoltar: {fileID: 1103729609193184, guid: b5633769281ca0940b368cbed17b7ec0, type: 3}
+  prefabSoltar: {fileID: 2388434975467101699, guid: d6292bf24ddd07b499793ae53cb0a33a, type: 3}
+  tipoUsoElemento: 0
