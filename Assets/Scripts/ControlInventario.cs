@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -21,11 +20,13 @@ public class ControlInventario : MonoBehaviour
     public TextMeshProUGUI descripcionElementoSeleccionado; // Descripcion del elemento seleccionado
     public TextMeshProUGUI nombreNecesidadElementoSeleccionado; // nombreNecesidad del elemento seleccionado
     public TextMeshProUGUI valoresNecesidadElementoSeleccionado; // valoresNecesidad del elemento seleccionado
-    public GameObject botonUsarElementoSeleccionado; // Botón de usar el elemento seleccionado
-    public GameObject botonSoltarElementoSeleccionado; // Botón de soltar el elemento seleccionado
+    public Button botonUsarElementoSeleccionado; // Botón de usar el elemento seleccionado
+    public Button botonSoltarElementoSeleccionado; // Botón de soltar el elemento seleccionado
 
     //necesitamos el control del jugador para poder usar el elemento
     private ControlJugador controlJugador; // Control del jugador
+    public int cantidadElemento; // Cantidad del elemento a usar
+    private ControlIndicadores controlIndicadores; // Control de indicadores del jugador
     [Header("eventos")]
     public UnityEvent onabrirVentanaInventario; // Evento al abrir la ventana del inventario
     public UnityEvent oncerrarVentanaInventario; // Evento al cerrar la ventana del inventario
@@ -46,6 +47,7 @@ public class ControlInventario : MonoBehaviour
 
         //aprovecho el awake para inicializar el control del jugador
         controlJugador = GetComponent<ControlJugador>();
+        controlIndicadores = GetComponent<ControlIndicadores>();
     }
 
     void Start()
@@ -60,16 +62,19 @@ public class ControlInventario : MonoBehaviour
         }
     }
 
+    // al pulsar TAB se cierra o se abre el inventario. Se llama al evento InputSystem OnBotonInventario
     public void AbrirCerrarVentanaInventario()
     {
         if (EstaAbierto())
         {
             ventanaInventario.SetActive(false); // Cerrar la ventana del inventario
+            controlJugador.ModoInventario(false); // Cambiar el modo del jugador a no inventario
         }
         else
         {
             ventanaInventario.SetActive(true); // Abrir la ventana del inventario
-        }        
+            controlJugador.ModoInventario(true); // Cambiar el modo del jugador a inventario
+        }
     }
 
     public void OnBotonInventario(InputAction.CallbackContext context)
@@ -112,7 +117,7 @@ public class ControlInventario : MonoBehaviour
 
     void SoltarElemento(DatosElemento elemento)
     {
-
+        Instantiate(elemento.prefabSoltar, posicionSoltar.position, Quaternion.Euler(Vector3.one * Random.value * 360f));
     }
 
     void ActualizarUI()
@@ -162,8 +167,8 @@ public class ControlInventario : MonoBehaviour
             nombreElementoSeleccionado.text = elementosEstanteriaSeleccionado.datosElemento.nombre; // Asignar el nombre del elemento seleccionado
             descripcionElementoSeleccionado.text = elementosEstanteriaSeleccionado.datosElemento.descripcion; // Asignar la descripción del elemento seleccionado
 
-            botonSoltarElementoSeleccionado.SetActive(true); // Activar el botón de soltar el elemento seleccionado
-            botonUsarElementoSeleccionado.SetActive(true); // Activar el botón de usar el elemento seleccionado si tiene necesidades
+            botonSoltarElementoSeleccionado.gameObject.SetActive(true); // Activar el botón de soltar el elemento seleccionado
+            botonUsarElementoSeleccionado.gameObject.SetActive(true); // Activar el botón de usar el elemento seleccionado si tiene necesidades
         }
     }
 
@@ -172,10 +177,10 @@ public class ControlInventario : MonoBehaviour
         elementosEstanteriaSeleccionado.cantidad--; // Disminuir la cantidad del elemento seleccionado
         if (elementosEstanteriaSeleccionado.cantidad <= 0)
         {
-            elementosEstanteria = null; // Eliminar el elemento seleccionado si la cantidad es menor o igual a 0
+            elementosEstanteriaSeleccionado.datosElemento = null; // Eliminar el elemento seleccionado si la cantidad es menor o igual a 0
             LimpiarVentanaElementoSeleccionado(); // Limpiar el elemento seleccionado
-
         }
+        ActualizarUI(); // Actualizar la interfaz de usuario
     }
 
     private void LimpiarVentanaElementoSeleccionado()
@@ -186,19 +191,36 @@ public class ControlInventario : MonoBehaviour
         nombreElementoSeleccionado.text = string.Empty; // Limpiar el nombre del elemento seleccionado
         descripcionElementoSeleccionado.text = string.Empty; // Limpiar la descripción del elemento seleccionado
 
-        botonSoltarElementoSeleccionado.SetActive(false);
-        botonUsarElementoSeleccionado.SetActive(false);
+        botonSoltarElementoSeleccionado.gameObject.SetActive(false);
+        botonUsarElementoSeleccionado.gameObject.SetActive(false);
         
     }
 
     public void OnBotonUsar()
     {
+        // ver que tipo de elemento es y usarlo
+        switch (elementosEstanteriaSeleccionado.datosElemento.tipoUsoElemento)
+        {
+            case TipoUsoElemento.Hambre:
+                controlIndicadores.hambre.Sumar(cantidadElemento);
+                break;
+            case TipoUsoElemento.Sed:
+                controlIndicadores.sed.Sumar(cantidadElemento);
+                break;
+            case TipoUsoElemento.Descanso:
+                controlIndicadores.descanso.Sumar(cantidadElemento);
+                break;
+            default:
+                Debug.LogWarning("Tipo de elemento no implementado: " + elementosEstanteriaSeleccionado.datosElemento.tipoUsoElemento);
+                break;
+        }
         EliminarElementoSeleccionado(); // Eliminar el elemento seleccionado
     }
 
     public void OnBotonSoltar()
-    {
-        //TODO
+    {        
+        SoltarElemento(elementosEstanteriaSeleccionado.datosElemento); // Soltar el elemento seleccionado
+        EliminarElementoSeleccionado(); // Eliminar el elemento seleccionado de la estantería
     }
 }
 

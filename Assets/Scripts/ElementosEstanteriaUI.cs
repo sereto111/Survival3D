@@ -31,6 +31,5 @@ public class ElementosEstanteriaUI : MonoBehaviour
     public void OnButtonClick()
     {
         ControlInventario.instance.ElementoSeleccionado(indice); // Seleccionar el elemento al hacer click
-        
     }
 }

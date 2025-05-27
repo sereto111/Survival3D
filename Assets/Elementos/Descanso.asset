@@ -15,4 +15,5 @@ MonoBehaviour:
   nombre: Cama
   descripcion: "Quita sue\xF1o"
   icono: {fileID: 21300000, guid: db7bca5e715b31244a815be00b4a4567, type: 3}
-  prefabSoltar: {fileID: 1830436995152026, guid: cb0e053fd89fe024dbd8be9cdb52019a, type: 3}
+  prefabSoltar: {fileID: 7938159582056227826, guid: a5bfb040c5fd180439711925fa63b688, type: 3}
+  tipoUsoElemento: 0

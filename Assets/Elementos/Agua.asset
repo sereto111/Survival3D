@@ -15,4 +15,5 @@ MonoBehaviour:
   nombre: Agua
   descripcion: Quita sed
   icono: {fileID: 21300000, guid: d59e9935ff171c44ba31b7fe20e159d9, type: 3}
-  prefabSoltar: {fileID: 1237884354238378, guid: 111549fa332d30b4d93ee7a79fca0218, type: 3}
+  prefabSoltar: {fileID: 1674692191611385464, guid: 8b7cadcb0be86414e8f9321d86d637e3, type: 3}
+  tipoUsoElemento: 0
